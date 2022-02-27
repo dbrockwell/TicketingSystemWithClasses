@@ -32,12 +32,13 @@ namespace ticketsV2 {
         public void AddTicket(Ticket ticket) {
             if(File.Exists(filePath)) {
                 ticket.ticketID = Tickets.Max(t => t.ticketID) + 1;
-                File.AppendAllText(filePath, ticket.entry());
+                File.AppendAllText(filePath, ticket.entry() + "\n");
+                logger.Info("Ticket ID {0} added", ticket.ticketID);
             }
             else {
                 StreamWriter ticketWrite = new StreamWriter(filePath);
                 ticket.ticketID = 1;
-                ticketWrite.Write(ticket.entry());
+                ticketWrite.Write(ticket.entry() + "\n");
                 ticketWrite.Close();
             }
         }

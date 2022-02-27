@@ -11,7 +11,7 @@ namespace ticketsV2
         {
             string ticketFilePath = Directory.GetCurrentDirectory() + "\\tickets.csv";
             logger.Info("Program started");
-            TicketFile ticketsFile = new TicketFile(ticketFilePath);
+            TicketFile ticketFile = new TicketFile(ticketFilePath);
             string choice;
             do {
                 Console.WriteLine("1) Read ticket information");
@@ -20,21 +20,38 @@ namespace ticketsV2
                 choice = Console.ReadLine();
 
                 if (choice == "1") {
-                    foreach(string ticket in ticketsFile.Tickets)
+                    foreach(Ticket ticket in ticketFile.Tickets)
                     {
                         Console.WriteLine(ticket);
                     }
                 }
 
                 if (choice == "2") {
-
+                    Ticket ticket = new Ticket();
+                    ticket.summary = NullCheck("Enter Ticket Summary", "summary");
+                    ticket.status = NullCheck("Enter Ticket Status", "status");
+                    ticket.priority = NullCheck("Enter Ticket Priority", "priority");
+                    ticket.submitter = NullCheck("Enter the Ticket Submitter", "submitter");
+                    ticket.assigned = NullCheck("Enter Person Assigned", "assigned");
+                    ticket.peopleWatching.Add(NullCheck("Enter Person Watching", "person watching"));
+                    string anotherWatcher;
+                    do {
+                        Console.WriteLine("Enter Another Person Watching Or Just Press 'ENTER' To Continue");
+                        anotherWatcher = Console.ReadLine();
+                        if (anotherWatcher != "") {
+                            ticket.peopleWatching.Add(anotherWatcher);
+                        }
+                    } while (anotherWatcher == "");
+                    ticketFile.AddTicket(ticket);
                 }
             } while (choice == "1" || choice == "2");
+
+            logger.Info("Program Ended");
         }
 
-        public string NullCheck(string question, string errorName) {
+        public static string NullCheck(string question, string errorName) {
             bool continueLoop = true;
-            string entry = "";
+            string entry;
             do {
                 Console.WriteLine(question);
                 entry = Console.ReadLine();
