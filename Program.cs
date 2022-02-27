@@ -20,7 +20,10 @@ namespace ticketsV2
                 choice = Console.ReadLine();
 
                 if (choice == "1") {
-
+                    foreach(string ticket in ticketsFile.Tickets)
+                    {
+                        Console.WriteLine(ticket);
+                    }
                 }
 
                 if (choice == "2") {
