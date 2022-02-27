@@ -27,7 +27,7 @@ namespace ticketsV2 {
             }
         }
 
-        public void AddTicket(Tickets tickets) {
+        public void AddTicket(Ticket tickets) {
             if(File.Exists(filePath)) {
                 File.AppendAllText(filePath, tickets.entry());
             }

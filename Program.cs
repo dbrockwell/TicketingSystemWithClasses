@@ -27,9 +27,27 @@ namespace ticketsV2
                 }
 
                 if (choice == "2") {
-                    
+
                 }
             } while (choice == "1" || choice == "2");
+        }
+
+        public string NullCheck(string question, string errorName) {
+            bool continueLoop = true;
+            string entry = "";
+            do {
+                Console.WriteLine(question);
+                entry = Console.ReadLine();
+                if (entry == "") {
+                    logger.Error("No input for {0} was entered", errorName);
+                    continueLoop = true;
+                }
+                else {
+                    continueLoop = false;
+                }
+            } while (continueLoop == true);
+
+            return entry;
         }
     }
 }
