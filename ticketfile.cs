@@ -1,23 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NLog.Web;
 
 namespace ticketsV2 {
     public class TicketFile {
         public string filePath {get; set;}
-        public List<string> Tickets {get; set;}
+        public List<Ticket> Tickets {get; set;}
         private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
 
         public TicketFile(string ticketFilePath) {
             filePath = ticketFilePath;
-            Tickets = new List<string>();
+            Tickets = new List<Ticket>();
             if(File.Exists(filePath))
             {
                 StreamReader ticketRead = new StreamReader(filePath);
                 while (!ticketRead.EndOfStream)
                 {
-                    Tickets.Add(ticketRead.ReadLine());
+                    Ticket ticket = new Ticket();
+                    Tickets.Add(ticket);
                 }
                 ticketRead.Close();
             }
@@ -27,13 +29,15 @@ namespace ticketsV2 {
             }
         }
 
-        public void AddTicket(Ticket tickets) {
+        public void AddTicket(Ticket ticket) {
             if(File.Exists(filePath)) {
-                File.AppendAllText(filePath, tickets.entry());
+                ticket.ticketID = Tickets.Max(t => t.ticketID) + 1;
+                File.AppendAllText(filePath, ticket.entry());
             }
             else {
                 StreamWriter ticketWrite = new StreamWriter(filePath);
-                ticketWrite.Write(tickets.entry());
+                ticket.ticketID = 1;
+                ticketWrite.Write(ticket.entry());
                 ticketWrite.Close();
             }
         }
