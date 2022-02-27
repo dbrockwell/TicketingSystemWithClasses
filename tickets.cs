@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ticketsV2 {
-    public class tickets {
+    public class Tickets {
         public UInt64 ticketID { get; set; }
         public string summary {get; set;}
         public string status {get; set;}
