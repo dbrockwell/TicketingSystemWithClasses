@@ -12,6 +12,21 @@ namespace ticketsV2
             string ticketFilePath = Directory.GetCurrentDirectory() + "\\tickets.csv";
             logger.Info("Program started");
             TicketFile ticketsFile = new TicketFile(ticketFilePath);
+            string choice;
+            do {
+                Console.WriteLine("1) Read ticket information");
+                Console.WriteLine("2) Add ticket infomation");
+                Console.WriteLine("Enter any other key to exit");
+                choice = Console.ReadLine();
+
+                if (choice == "1") {
+
+                }
+
+                if (choice == "2") {
+                    
+                }
+            } while (choice == "1" || choice == "2");
         }
     }
 }
