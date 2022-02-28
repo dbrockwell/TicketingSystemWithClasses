@@ -19,6 +19,15 @@ namespace ticketsV2 {
                 while (!ticketRead.EndOfStream)
                 {
                     Ticket ticket = new Ticket();
+                    string line = ticketRead.ReadLine();
+                    string[] ticketSplit = line.Split(',');
+                    ticket.ticketID = UInt64.Parse(ticketSplit[0]);
+                    ticket.summary = ticketSplit[1];
+                    ticket.status = ticketSplit[2];
+                    ticket.priority = ticketSplit[3];
+                    ticket.submitter = ticketSplit[4];
+                    ticket.assigned = ticketSplit[5];
+                    ticket.peopleWatching = ticketSplit[6].Split('|').ToList();
                     Tickets.Add(ticket);
                 }
                 ticketRead.Close();
@@ -40,6 +49,7 @@ namespace ticketsV2 {
                 ticket.ticketID = 1;
                 ticketWrite.Write(ticket.entry() + "\n");
                 ticketWrite.Close();
+                logger.Info("File {0} added and Ticket ID {1} added", filePath, ticket.ticketID);
             }
         }
     }

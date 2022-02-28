@@ -12,6 +12,11 @@ namespace ticketsV2 {
         public string assigned {get; set;}
         public List<string> peopleWatching {get; set;}
 
+        public Ticket()
+        {
+            peopleWatching = new List<string>();
+        }
+
         public string entry() {
             string peopleWatchingString = "";
             string lastperson = peopleWatching.LastOrDefault();

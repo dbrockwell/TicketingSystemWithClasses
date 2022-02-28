@@ -22,10 +22,10 @@ namespace ticketsV2
                 if (choice == "1") {
                     foreach(Ticket ticket in ticketFile.Tickets)
                     {
-                        Console.WriteLine(ticket);
+                        Console.WriteLine(ticket.entry());
                     }
                 }
-
+                
                 if (choice == "2") {
                     Ticket ticket = new Ticket();
                     ticket.summary = NullCheck("Enter Ticket Summary", "summary");
@@ -41,7 +41,7 @@ namespace ticketsV2
                         if (anotherWatcher != "") {
                             ticket.peopleWatching.Add(anotherWatcher);
                         }
-                    } while (anotherWatcher == "");
+                    } while (anotherWatcher != "");
                     ticketFile.AddTicket(ticket);
                 }
             } while (choice == "1" || choice == "2");
